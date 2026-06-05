@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/images/cover.png" alt="Marco Mina Portfolio Preview" width="100%" />
+</p>
+
 # Marco Mina | Flutter Developer Portfolio
 
 A modern, responsive developer portfolio built with Next.js and React, showcasing mobile development projects, technical skills, and professional experience. Designed with a dark theme, smooth animations, and glassmorphism aesthetics.
