@@ -70,33 +70,9 @@ The site is fully responsive across mobile, tablet, and desktop breakpoints, wit
 ```
 portfolio/
 ├── app/
-│   ├── globals.css              # Global styles, design tokens, animations
-│   ├── layout.tsx               # Root layout with metadata and fonts
-│   ├── page.tsx                 # Home page assembling all sections
-│   ├── icon.png                 # Favicon
-│   └── projects/
-│       └── [slug]/
-│           ├── page.tsx                 # Dynamic route handler
-│           └── ProjectDetailClient.tsx  # Project detail page component
 ├── components/
-│   ├── Hero.tsx                 # Hero section with avatar and CTAs
-│   ├── Navbar.tsx               # Fixed navbar with Available badge
-│   ├── Skills.tsx               # Skills grid section
-│   ├── Projects.tsx             # Bento grid project showcase
-│   ├── Experience.tsx           # Work experience timeline
-│   ├── Contact.tsx              # Contact cards and CV download
-│   ├── Footer.tsx               # Footer
-│   ├── WhatsAppFAB.tsx          # Floating WhatsApp button
-│   ├── Particles.tsx            # Canvas particle system
-│   ├── CursorGlow.tsx           # Cursor follow glow effect
-│   └── ScrollProgress.tsx       # Scroll progress indicator
 ├── lib/
-│   └── projects-data.ts         # Project data definitions and types
 ├── public/
-│   ├── avatar.jpg               # Profile photo
-│   ├── cv/                      # Downloadable CV
-│   └── images/
-│       └── projects/            # Project cover images and screenshots
 ├── package.json
 ├── next.config.ts
 └── tsconfig.json
@@ -151,54 +127,7 @@ Curated news reader with category filtering, bookmarking, and a clean reading ex
 - Node.js 18.17 or later
 - npm or yarn
 
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/Marco-Mina-Moris/portfolio.git
-
-# Navigate to the project directory
-cd portfolio
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm run dev
-```
-
-The app will be available at `http://localhost:3000`.
-
 ---
 
-## Scripts
-
-| Command         | Description                    |
-|-----------------|--------------------------------|
-| `npm run dev`   | Start development server       |
-| `npm run build` | Create production build        |
-| `npm run start` | Start production server        |
-| `npm run lint`  | Run ESLint checks              |
-
----
-
-## Deployment
-
-This project is optimized for deployment on **Vercel**:
-
-1. Push the repository to GitHub.
-2. Import the project on [vercel.com](https://vercel.com).
-3. Vercel will auto-detect Next.js and configure the build settings.
-4. Deploy.
-
-For other platforms, run `npm run build` and serve the `.next` output directory.
-
----
-
-## License
-
-This project is open source and available for reference and learning purposes.
-
----
 
 **Built with Next.js, React, and TypeScript.**
