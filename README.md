@@ -2,7 +2,7 @@
 
 A modern, responsive developer portfolio built with Next.js and React, showcasing mobile development projects, technical skills, and professional experience. Designed with a dark theme, smooth animations, and glassmorphism aesthetics.
 
-**Live Preview:** [Coming Soon]
+**Live Preview:** [marco-mina-portfolio.vercel.app](https://marco-mina-portfolio.vercel.app)
 
 ---
 
