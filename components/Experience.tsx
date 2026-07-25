@@ -2,7 +2,16 @@
 
 const experiences = [
     {
-        period: "Nov 2025 — Present",
+        period: "Jun 2026 — Present",
+        role: "Flutter Developer | Technical Instructor",
+        company: "B - Developer · Part-time",
+        location: "Egypt · Remote",
+        description: "Developing and maintaining cross-platform mobile applications using Flutter and Dart. Delivering Flutter training sessions covering Dart, Flutter, state management, Clean Architecture, and real-world projects. Mentoring students through practical assignments, code reviews, and debugging sessions.",
+        tags: ["Flutter", "Dart", "Clean Architecture", "BLoC", "Teaching"],
+        color: "#00e5ff",
+    },
+    {
+        period: "Nov 2025 — May 2026",
         role: "Cross Platform Mobile App Developer",
         company: "Digital Egypt Pioneers Initiative (DEPI)",
         location: "Remote",
