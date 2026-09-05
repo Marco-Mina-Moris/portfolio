@@ -127,6 +127,11 @@ export default function ProjectDetailClient({ project }: { project: ProjectData 
                                     Freelance Project
                                 </span>
                             )}
+                            {project.tag && (
+                                <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", padding: "5px 14px", borderRadius: "100px", background: "rgba(129, 140, 248, 0.12)", border: "1px solid rgba(129, 140, 248, 0.3)", fontSize: "0.72rem", fontWeight: 600, color: "#818CF8", letterSpacing: "0.08em", textTransform: "uppercase", fontFamily: "'JetBrains Mono', monospace" }}>
+                                    {project.tag} Client Work
+                                </span>
+                            )}
                             <span className="font-mono-code" style={{ color: "rgba(240,244,255,0.4)", fontSize: "0.75rem" }}>{project.year}</span>
                         </motion.div>
 
@@ -140,14 +145,228 @@ export default function ProjectDetailClient({ project }: { project: ProjectData 
                             {project.description}
                         </motion.p>
 
-                        {/* Action buttons */}
-                        <motion.div variants={fadeUp} style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "40px" }}>
-                            <a href={project.github} target="_blank" rel="noopener noreferrer"
-                                style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "8px", padding: "12px 24px", borderRadius: "12px", fontSize: "0.9rem", fontWeight: 600, color: "#05080F", background: `linear-gradient(135deg, ${project.color} 0%, ${project.color}CC 100%)`, transition: "all 0.3s ease" }}
-                                onMouseEnter={e => { e.currentTarget.style.boxShadow = `0 0 28px ${project.color}55`; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                                onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "translateY(0)"; }}>
-                                <Github size={16} /> View on GitHub
-                            </a>
+                        {/* Deployment & Release Launchpad */}
+                        <motion.div variants={fadeUp} style={{ marginBottom: "36px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+                                <span style={{
+                                    width: "6px",
+                                    height: "6px",
+                                    borderRadius: "50%",
+                                    background: project.color,
+                                    boxShadow: `0 0 10px ${project.color}`,
+                                }} />
+                                <span style={{
+                                    fontSize: "0.68rem",
+                                    fontWeight: 700,
+                                    letterSpacing: "0.12em",
+                                    textTransform: "uppercase",
+                                    color: "rgba(240,244,255,0.45)",
+                                    fontFamily: "'JetBrains Mono', monospace",
+                                }}>
+                                    {project.tag === "Marketopia" ? "Repository & Store Availability" : "Project Links & Availability"}
+                                </span>
+                            </div>
+
+                            <div style={{
+                                display: "inline-flex",
+                                flexWrap: "wrap",
+                                gap: "12px",
+                                alignItems: "center",
+                                padding: "6px",
+                                borderRadius: "20px",
+                                background: "rgba(255,255,255,0.02)",
+                                border: "1px solid rgba(255,255,255,0.06)",
+                                backdropFilter: "blur(20px)",
+                                maxWidth: "100%",
+                            }}>
+                                {/* GitHub Button (Active CTA) */}
+                                {project.github && project.github !== "#" && project.github !== "" && (
+                                    <a
+                                        href={project.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="launchpad-btn launchpad-btn-github"
+                                        style={{
+                                            textDecoration: "none",
+                                            display: "inline-flex",
+                                            alignItems: "center",
+                                            gap: "10px",
+                                            height: "54px",
+                                            padding: "0 18px",
+                                            borderRadius: "14px",
+                                            background: `linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)`,
+                                            border: `1px solid ${project.color}66`,
+                                            boxShadow: `0 4px 20px rgba(0,0,0,0.3), 0 0 25px ${project.color}1f, inset 0 1px 0 rgba(255,255,255,0.15)`,
+                                            backdropFilter: "blur(20px)",
+                                            cursor: "pointer",
+                                            transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+                                        }}
+                                        onMouseEnter={e => {
+                                            e.currentTarget.style.borderColor = project.color;
+                                            e.currentTarget.style.boxShadow = `0 8px 30px ${project.color}45, 0 0 35px ${project.color}30, inset 0 1px 0 rgba(255,255,255,0.25)`;
+                                            e.currentTarget.style.transform = "translateY(-2px)";
+                                        }}
+                                        onMouseLeave={e => {
+                                            e.currentTarget.style.borderColor = `${project.color}66`;
+                                            e.currentTarget.style.boxShadow = `0 4px 20px rgba(0,0,0,0.3), 0 0 25px ${project.color}1f, inset 0 1px 0 rgba(255,255,255,0.15)`;
+                                            e.currentTarget.style.transform = "translateY(0)";
+                                        }}
+                                    >
+                                        <div style={{
+                                            width: "32px",
+                                            height: "32px",
+                                            borderRadius: "9px",
+                                            background: `${project.color}18`,
+                                            border: `1px solid ${project.color}40`,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            flexShrink: 0,
+                                        }}>
+                                            <Github size={18} style={{ color: project.color }} />
+                                        </div>
+                                        <span className="font-clash" style={{ fontSize: "0.95rem", fontWeight: 700, color: "#F0F4FF", letterSpacing: "-0.01em" }}>
+                                            GitHub
+                                        </span>
+                                        <div style={{
+                                            width: "22px",
+                                            height: "22px",
+                                            borderRadius: "50%",
+                                            background: `${project.color}18`,
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            marginLeft: "2px",
+                                        }}>
+                                            <ExternalLink size={12} style={{ color: project.color }} />
+                                        </div>
+                                    </a>
+                                )}
+
+                                {/* Store Badges for Client Apps */}
+                                {project.tag === "Marketopia" && (
+                                    <>
+                                        {/* Google Play Store Badge */}
+                                        <div
+                                            className="launchpad-btn launchpad-btn-store"
+                                            style={{
+                                                display: "inline-flex",
+                                                alignItems: "center",
+                                                gap: "12px",
+                                                height: "54px",
+                                                padding: "0 16px",
+                                                borderRadius: "14px",
+                                                background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.018) 100%)",
+                                                border: "1px solid rgba(255,255,255,0.09)",
+                                                boxShadow: "0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)",
+                                                backdropFilter: "blur(20px)",
+                                                userSelect: "none",
+                                                cursor: "default",
+                                                transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+                                            }}
+                                            onMouseEnter={e => {
+                                                e.currentTarget.style.borderColor = "rgba(245,158,11,0.45)";
+                                                e.currentTarget.style.boxShadow = "0 6px 24px rgba(245,158,11,0.18), inset 0 1px 0 rgba(255,255,255,0.12)";
+                                                e.currentTarget.style.transform = "translateY(-2px)";
+                                            }}
+                                            onMouseLeave={e => {
+                                                e.currentTarget.style.borderColor = "rgba(255,255,255,0.09)";
+                                                e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)";
+                                                e.currentTarget.style.transform = "translateY(0)";
+                                            }}
+                                            title={`Google Play Store — تطبيق ${project.name} قيد الاختبار`}
+                                        >
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.3))" }}>
+                                                <path d="M3.609 1.814L13.792 12 3.61 22.186a1.996 1.996 0 0 1-.61-1.436V3.25c0-.547.22-1.043.61-1.436z" fill="#00D3FF"/>
+                                                <path d="M17.207 8.586l-3.415 3.414 3.415 3.414 3.864-2.208c1.1-.628 1.1-1.782 0-2.412L17.207 8.586z" fill="#FFCE00"/>
+                                                <path d="M13.792 12L3.61 1.814A2.08 2.08 0 0 1 4.75 1.5c.61 0 1.22.25 1.72.54l10.737 6.546-3.415 3.414z" fill="#00F076"/>
+                                                <path d="M13.792 12l3.415 3.414-10.737 6.546c-.5.29-1.11.54-1.72.54-.42 0-.82-.09-1.14-.314L13.792 12z" fill="#FF3A44"/>
+                                            </svg>
+                                            <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.15 }}>
+                                                <span style={{ fontSize: "0.56rem", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(240,244,255,0.42)", textTransform: "uppercase", fontFamily: "'JetBrains Mono', monospace" }}>
+                                                    GET IT ON
+                                                </span>
+                                                <span className="font-clash" style={{ fontSize: "0.92rem", fontWeight: 700, color: "#F0F4FF", letterSpacing: "-0.01em" }}>
+                                                    Google Play
+                                                </span>
+                                            </div>
+                                            <div style={{
+                                                display: "inline-flex",
+                                                alignItems: "center",
+                                                gap: "6px",
+                                                padding: "4px 10px",
+                                                borderRadius: "100px",
+                                                background: "rgba(245,158,11,0.13)",
+                                                border: "1px solid rgba(245,158,11,0.32)",
+                                                marginLeft: "4px",
+                                            }}>
+                                                <span className="pulse-amber-dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#F59E0B" }} />
+                                                <span style={{ fontSize: "0.64rem", fontWeight: 700, color: "#FBBF24", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.02em" }}>
+                                                    In Testing · قيد الاختبار
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* App Store Badge */}
+                                        <div
+                                            className="launchpad-btn launchpad-btn-store"
+                                            style={{
+                                                display: "inline-flex",
+                                                alignItems: "center",
+                                                gap: "12px",
+                                                height: "54px",
+                                                padding: "0 16px",
+                                                borderRadius: "14px",
+                                                background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.018) 100%)",
+                                                border: "1px solid rgba(255,255,255,0.09)",
+                                                boxShadow: "0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)",
+                                                backdropFilter: "blur(20px)",
+                                                userSelect: "none",
+                                                cursor: "default",
+                                                transition: "all 0.3s cubic-bezier(0.22, 1, 0.36, 1)",
+                                            }}
+                                            onMouseEnter={e => {
+                                                e.currentTarget.style.borderColor = "rgba(56,189,248,0.45)";
+                                                e.currentTarget.style.boxShadow = "0 6px 24px rgba(56,189,248,0.18), inset 0 1px 0 rgba(255,255,255,0.12)";
+                                                e.currentTarget.style.transform = "translateY(-2px)";
+                                            }}
+                                            onMouseLeave={e => {
+                                                e.currentTarget.style.borderColor = "rgba(255,255,255,0.09)";
+                                                e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)";
+                                                e.currentTarget.style.transform = "translateY(0)";
+                                            }}
+                                            title={`Apple App Store — تطبيق ${project.name} قيد الاختبار`}
+                                        >
+                                            <svg width="22" height="22" viewBox="0 0 24 24" fill="#F0F4FF" style={{ flexShrink: 0, filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.3))" }}>
+                                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.64 1.35-.57.65-1.07 1.71-.94 2.73 1.01.08 2.04-.48 2.66-1.23z"/>
+                                            </svg>
+                                            <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.15 }}>
+                                                <span style={{ fontSize: "0.56rem", fontWeight: 700, letterSpacing: "0.1em", color: "rgba(240,244,255,0.42)", textTransform: "uppercase", fontFamily: "'JetBrains Mono', monospace" }}>
+                                                    DOWNLOAD ON
+                                                </span>
+                                                <span className="font-clash" style={{ fontSize: "0.92rem", fontWeight: 700, color: "#F0F4FF", letterSpacing: "-0.01em" }}>
+                                                    App Store
+                                                </span>
+                                            </div>
+                                            <div style={{
+                                                display: "inline-flex",
+                                                alignItems: "center",
+                                                gap: "6px",
+                                                padding: "4px 10px",
+                                                borderRadius: "100px",
+                                                background: "rgba(56,189,248,0.13)",
+                                                border: "1px solid rgba(56,189,248,0.32)",
+                                                marginLeft: "4px",
+                                            }}>
+                                                <span className="pulse-blue-dot" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#38BDF8" }} />
+                                                <span style={{ fontSize: "0.64rem", fontWeight: 700, color: "#38BDF8", fontFamily: "'JetBrains Mono', monospace", letterSpacing: "0.02em" }}>
+                                                    In Testing · قيد الاختبار
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
                         </motion.div>
 
                         {/* Cover image (nested inside same section to avoid layout split) */}
@@ -241,8 +460,13 @@ export default function ProjectDetailClient({ project }: { project: ProjectData 
                                     {[
                                         { label: "Type", value: project.label },
                                         ...(project.isFreelance ? [{ label: "Client/Context", value: "Freelance Project" }] : []),
+                                        ...(project.tag ? [{ label: "Agency / Client", value: project.tag }] : []),
+                                        ...(project.tag === "Marketopia" ? [
+                                            { label: "Google Play", value: "In Testing (قيد الاختبار)" },
+                                            { label: "App Store", value: "In Testing (قيد الاختبار)" },
+                                        ] : []),
                                         { label: "Year", value: project.year },
-                                        { label: "Status", value: "Completed" },
+                                        { label: "Status", value: project.tag === "Marketopia" ? "Completed · Store Testing" : "Completed" },
                                     ].map(({ label, value }) => (
                                         <div key={label} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "10px 0", borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
                                             <span style={{ color: "rgba(240,244,255,0.35)", fontSize: "0.8rem" }}>{label}</span>
@@ -263,20 +487,6 @@ export default function ProjectDetailClient({ project }: { project: ProjectData 
                                             ))}
                                         </div>
                                     </div>
-
-                                    {/* GitHub link */}
-                                    <a href={project.github} target="_blank" rel="noopener noreferrer"
-                                        style={{
-                                            display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
-                                            marginTop: "24px", padding: "11px", borderRadius: "12px",
-                                            background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
-                                            color: "rgba(240,244,255,0.7)", textDecoration: "none", fontSize: "0.85rem", fontWeight: 600,
-                                            transition: "all 0.3s ease",
-                                        }}
-                                        onMouseEnter={e => { e.currentTarget.style.borderColor = `${project.color}50`; e.currentTarget.style.color = "#F0F4FF"; }}
-                                        onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.color = "rgba(240,244,255,0.7)"; }}>
-                                        <Github size={15} /> Source Code <ExternalLink size={12} />
-                                    </a>
                                 </div>
                             </motion.aside>
                         </div>
@@ -313,6 +523,21 @@ export default function ProjectDetailClient({ project }: { project: ProjectData 
             </div>
 
             <style>{`
+                @keyframes pulse-amber {
+                    0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 8px rgba(245,158,11,0.8); }
+                    50% { transform: scale(0.85); opacity: 0.5; box-shadow: 0 0 2px rgba(245,158,11,0.3); }
+                }
+                @keyframes pulse-blue {
+                    0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 8px rgba(56,189,248,0.8); }
+                    50% { transform: scale(0.85); opacity: 0.5; box-shadow: 0 0 2px rgba(56,189,248,0.3); }
+                }
+                .pulse-amber-dot {
+                    animation: pulse-amber 2s infinite ease-in-out;
+                }
+                .pulse-blue-dot {
+                    animation: pulse-blue 2s infinite ease-in-out;
+                }
+
                 @keyframes mesh-shift{0%{filter:hue-rotate(0deg) brightness(1)}100%{filter:hue-rotate(15deg) brightness(1.08)}}
 
                 .screenshot-card:hover {
