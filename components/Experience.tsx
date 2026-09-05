@@ -2,6 +2,15 @@
 
 const experiences = [
     {
+        period: "Aug 2026 — Sep 2026",
+        role: "Flutter Developer Trainee",
+        company: "Marketopia",
+        location: "Egypt · Hybrid",
+        description: "Completed a 1-month hybrid training program at Marketopia, gaining hands-on experience building real client Flutter applications with Clean Architecture, real backend API integration, and production app deployment workflows.",
+        tags: ["Flutter", "Clean Architecture", "REST API", "Hybrid"],
+        color: "#818CF8",
+    },
+    {
         period: "Jun 2026 — Present",
         role: "Flutter Developer | Technical Instructor",
         company: "B - Developer · Part-time",

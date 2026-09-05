@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import React from "react";
 import Link from "next/link";
-import { projects } from "@/lib/projects-data";
+import { projects, clientProjects, type ProjectItem } from "@/lib/projects-data";
 
 /* Per-project brand accent config */
 const cardAccents: Record<string, { accent: string; hoverBorder: string; gradientDark: string }> = {
@@ -14,18 +14,28 @@ const cardAccents: Record<string, { accent: string; hoverBorder: string; gradien
     shoply:          { accent: "#FF8C00", hoverBorder: "rgba(255,140,0,0.4)",    gradientDark: "#3D2200" },
     evently:         { accent: "#4A7BF7", hoverBorder: "rgba(74,123,247,0.4)",   gradientDark: "#1A2B5F" },
     news:            { accent: "#A78BFA", hoverBorder: "rgba(167,139,250,0.4)",  gradientDark: "#1F1A2F" },
+    "do-cafe":       { accent: "#F59E0B", hoverBorder: "rgba(245,158,11,0.4)",   gradientDark: "#382008" },
+    dogo:            { accent: "#F59E0B", hoverBorder: "rgba(245,158,11,0.4)",   gradientDark: "#382008" },
+    "acta-chemical": { accent: "#00B4AB", hoverBorder: "rgba(0,180,171,0.4)",   gradientDark: "#0B2E2B" },
+    "bright-star":   { accent: "#0EA5E9", hoverBorder: "rgba(14,165,233,0.4)",  gradientDark: "#082F49" },
+    brightstar:      { accent: "#0EA5E9", hoverBorder: "rgba(14,165,233,0.4)",  gradientDark: "#082F49" },
+    daniella:        { accent: "#FB7185", hoverBorder: "rgba(251,113,133,0.4)", gradientDark: "#3F0E1E" },
+    tarwiqa:         { accent: "#10B981", hoverBorder: "rgba(16,185,129,0.4)",  gradientDark: "#064E3B" },
+    "easy-math":     { accent: "#A855F7", hoverBorder: "rgba(168,85,247,0.4)",  gradientDark: "#2E1065" },
+    easymath:        { accent: "#A855F7", hoverBorder: "rgba(168,85,247,0.4)",  gradientDark: "#2E1065" },
 };
 
-function BentoCard({ project, featured }: { project: typeof projects[0]; featured?: boolean }) {
+function BentoCard({ project, featured }: { project: ProjectItem; featured?: boolean }) {
     const [hovered, setHovered] = useState(false);
     const cardHeight = featured ? 420 : 380;
     const imagePercent = featured ? 60 : 55;
 
     const accent = cardAccents[project.slug] ?? { accent: project.color, hoverBorder: `${project.color}66`, gradientDark: "#05080F" };
+    const href = `/projects/${project.slug}`;
 
     return (
         <Link
-            href={`/projects/${project.slug}`}
+            href={href}
             className="bento-card"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
@@ -118,7 +128,21 @@ function BentoCard({ project, featured }: { project: typeof projects[0]; feature
                                 Freelance
                             </span>
                         )}
-                        {featured && (
+                        {project.tag && (
+                            <span className="font-mono-code" style={{
+                                padding: "2px 8px",
+                                borderRadius: "100px",
+                                fontSize: "0.62rem",
+                                fontWeight: 600,
+                                color: "#818CF8",
+                                background: "rgba(129,140,248,0.12)",
+                                border: "1px solid rgba(129,140,248,0.25)",
+                                letterSpacing: "0.02em",
+                            }}>
+                                {project.tag}
+                            </span>
+                        )}
+                        {(featured || project.tag) && project.year && (
                             <span className="font-mono-code" style={{
                                 padding: "2px 8px",
                                 borderRadius: "100px",
@@ -197,10 +221,12 @@ export default function Projects() {
     // Row 2: Murshid (index 1) + Food Delivery (index 2)
     // Row 3: Shoply (index 3) + Evently (index 4)
     // Row 4: News (index 5) — full width
-    const featuredProject = projects[0];
-    const row2 = [projects[1], projects[2]];
-    const row3 = [projects[3], projects[4]];
-    const lastProject = projects[5];
+    const clientProjectsList = projects.filter(p => p.tag === "Marketopia");
+    const originalProjects = projects.filter(p => p.tag !== "Marketopia");
+    const featuredProject = originalProjects[0];
+    const row2 = [originalProjects[1], originalProjects[2]];
+    const row3 = [originalProjects[3], originalProjects[4]];
+    const lastProject = originalProjects[5];
 
     return (
         <section id="projects">
@@ -224,26 +250,33 @@ export default function Projects() {
 
                 {/* Bento Grid */}
                 <div className="bento-grid">
-                    {/* Row 1: Full width featured */}
+                    {/* Client Projects (Rows 1-3: pairs of 2) */}
+                    {clientProjectsList.map(p => (
+                        <div key={p.slug} className="bento-half">
+                            <BentoCard project={p} />
+                        </div>
+                    ))}
+
+                    {/* Full width featured */}
                     <div className="bento-full">
                         <BentoCard project={featuredProject} featured />
                     </div>
 
-                    {/* Row 2: Two equal cards */}
+                    {/* Two equal cards */}
                     {row2.map(p => (
                         <div key={p.slug} className="bento-half">
                             <BentoCard project={p} />
                         </div>
                     ))}
 
-                    {/* Row 3: Two equal cards */}
+                    {/* Two equal cards */}
                     {row3.map(p => (
                         <div key={p.slug} className="bento-half">
                             <BentoCard project={p} />
                         </div>
                     ))}
 
-                    {/* Row 4: Full width */}
+                    {/* Full width */}
                     <div className="bento-full">
                         <BentoCard project={lastProject} />
                     </div>

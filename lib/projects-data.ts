@@ -1,25 +1,183 @@
 export const GITHUB = "https://github.com/Marco-Mina-Moris";
 
-export interface ProjectData {
+export interface ProjectItem {
     slug: string;
-    meshColors: [string, string, string];
-    color: string;
-    label: string;
-    year: string;
     name: string;
+    color: string;
+    year: string;
     description: string;
-    longDescription: string;
     tech: string[];
-    featured: boolean;
+    coverImage: string;
+    isFreelance?: boolean;
+    tag?: string;
+    link?: string;
+    github?: string;
+    objectPosition?: string;
+    featured?: boolean;
+}
+
+export interface ProjectData extends ProjectItem {
+    meshColors: [string, string, string];
+    label: string;
+    longDescription: string;
     github: string;
     features: string[];
-    coverImage: string;
     screenshots: string[];
-    isFreelance?: boolean;
-    objectPosition?: string;
+    featured: boolean;
+    isPrivate?: boolean;
 }
 
 export const projects: ProjectData[] = [
+    {
+        slug: "do-cafe",
+        name: "Do. Cafe (DOgo)",
+        coverImage: "/images/projects/dogo-banner.png",
+        screenshots: ["/images/projects/dogo-banner.png"],
+        meshColors: ["rgba(245,158,11,0.8)", "rgba(56,32,8,0.6)", "rgba(245,158,11,0.4)"],
+        color: "#F59E0B",
+        label: "Food & Beverage · Cafe Ordering",
+        year: "2026",
+        tag: "Marketopia",
+        isPrivate: true,
+        featured: false,
+        github: "https://github.com/Marco-Mina-Moris/Do-Cafe",
+        objectPosition: "top",
+        description: 'Cafe ordering app for "Do. Cafe - Coffee & More" with Takeaway, Dine-in, and Delivery flows, real Laravel/Sanctum backend, wishlist, saved addresses, and Paymob in-app payment.',
+        longDescription: 'Do. Cafe (DOgo) is a flagship mobile ordering application built for "Do. Cafe - Coffee & More", providing a complete digital cafe experience with dedicated Takeaway, Dine-in, and Delivery flows. Engineered with Flutter and Riverpod following Clean Architecture, the app interfaces with a custom Laravel backend secured via Laravel Sanctum. Customers can customize drink sizes, roast types, and add-ons in real time, save favorite items to their wishlist, manage multiple delivery addresses with GPS location selection, and pay seamlessly via integrated Paymob payment gateway (credit card and mobile wallets). The app features instant order tracking with live status updates, digital receipt generation, and promotional voucher redemption.',
+        tech: ["Flutter", "Riverpod", "Laravel API", "Paymob", "Clean Architecture"],
+        features: [
+            "Multi-fulfillment ordering: Takeaway, Dine-in table ordering, and doorstep Delivery flows",
+            "Custom product builder for size variations, milk choices, sweetness levels, and add-ons",
+            "Full payment processing via Paymob gateway supporting cards and local mobile wallets",
+            "Clean Architecture with Riverpod state management, repository pattern, and immutable models",
+            "Address book management with interactive map picker, wishlist, and real-time order history tracking",
+        ],
+    },
+    {
+        slug: "acta-chemical",
+        name: "Acta Chemical",
+        coverImage: "/images/projects/acta-chemical-banner.png",
+        screenshots: ["/images/projects/acta-chemical-banner.png"],
+        meshColors: ["rgba(0,180,171,0.8)", "rgba(11,46,43,0.6)", "rgba(0,180,171,0.4)"],
+        color: "#00B4AB",
+        label: "B2B / B2C E-Commerce · Chemicals",
+        year: "2026",
+        tag: "Marketopia",
+        isPrivate: true,
+        featured: false,
+        github: "https://github.com/Marco-Mina-Moris/Acta-Chemical",
+        objectPosition: "top",
+        description: "E-commerce app for a chemicals company with 4 product sections (cosmetics, detergents, raw materials, specialty serums), real Laravel/Sanctum backend, multiple payment methods, downloadable product booklets.",
+        longDescription: "Acta Chemical is an enterprise-grade mobile e-commerce application developed for a chemical manufacturing and distribution company. The platform organizes hundreds of chemical formulations into four distinct product divisions: cosmetics, industrial & home detergents, raw chemical materials, and specialty active serums. Built using Flutter and structured with Clean Architecture, the app connects to a RESTful Laravel API with Sanctum token authentication. Users and businesses can explore chemical specs, download official technical data sheets and product booklets (PDFs) with in-app preview, select bulk packaging options, and complete checkout through multiple payment gateways. Advanced multi-criteria search and category filtering allow clients to locate specialized chemical compounds rapidly.",
+        tech: ["Flutter", "Laravel API", "E-commerce", "Clean Architecture"],
+        features: [
+            "Structured catalog across 4 specialized product divisions with technical specs and safety sheets",
+            "Built-in PDF viewer and downloader for official product booklets and certificate of analysis files",
+            "Multiple payment methods and flexible checkout workflows accommodating wholesale and retail orders",
+            "Clean Architecture separation: data sources, repositories, use cases, and reactive presentation layer",
+            "Real-time catalog synchronization with Laravel backend, automated cart recalculations, and order dispatch alerts",
+        ],
+    },
+    {
+        slug: "bright-star",
+        name: "Bright Star",
+        coverImage: "/images/projects/brightstar-banner.png",
+        screenshots: ["/images/projects/brightstar-banner.png"],
+        meshColors: ["rgba(14,165,233,0.8)", "rgba(8,47,73,0.6)", "rgba(14,165,233,0.4)"],
+        color: "#0EA5E9",
+        label: "Medical Supplies & Equipment",
+        year: "2026",
+        tag: "Marketopia",
+        isPrivate: true,
+        featured: false,
+        github: "https://github.com/Marco-Mina-Moris/Bright-Star",
+        objectPosition: "top",
+        description: "Medical equipment & supplies e-commerce app replicating client branding, Riverpod state management, repository-pattern architecture, WhatsApp-based ordering.",
+        longDescription: "Bright Star is a modern medical supplies and clinical equipment e-commerce application designed to streamline procurement for clinics, hospitals, and healthcare professionals. Faithfully reflecting the client's corporate visual identity, the app features an intuitive medical catalog with high-resolution imagery, technical parameters, and inventory availability indicators. Built using Flutter and Riverpod with the repository pattern, the application provides instantaneous UI responsiveness and reliable offline caching. To align with localized medical sales workflows in Egypt and the MENA region, the app integrates direct WhatsApp-based automated quotation and ordering, generating pre-filled, itemized purchase orders sent directly to sales representatives for rapid fulfillment.",
+        tech: ["Flutter", "Riverpod", "Repository Pattern", "WhatsApp"],
+        features: [
+            "Comprehensive medical equipment catalog with categories, search, and detailed technical specifications",
+            "Automated WhatsApp ordering system creating formatted itemized orders with direct rep dispatch",
+            "Scalable Riverpod state management implementing repository pattern for robust data flow",
+            "Client branding replication with medical-grade UI, micro-animations, and responsive layouts",
+            "Local persistence for cart items, search history, and recently viewed medical equipment",
+        ],
+    },
+    {
+        slug: "daniella",
+        name: "Daniella",
+        coverImage: "/images/projects/daniella-banner.png",
+        screenshots: ["/images/projects/daniella-banner.png"],
+        meshColors: ["rgba(251,113,133,0.8)", "rgba(63,14,30,0.6)", "rgba(251,113,133,0.4)"],
+        color: "#FB7185",
+        label: "Luxury Fashion · E-Commerce",
+        year: "2026",
+        tag: "Marketopia",
+        isPrivate: true,
+        featured: false,
+        github: "https://github.com/Marco-Mina-Moris/Daniella",
+        objectPosition: "top",
+        description: "Luxury swimwear/beach fashion e-commerce app, bilingual AR/EN, native-app-feel UI with polished navigation and motion.",
+        longDescription: "Daniella is an elegant, high-fashion mobile shopping application crafted for a luxury swimwear and resort beachwear brand. Designed to deliver an editorial, magazine-like experience, the app emphasizes fluid motion, hero visual storytelling, and bespoke transitions that rival top native fashion apps. It provides full bilingual support in Arabic and English with seamless, real-time RTL/LTR layout mirroring and custom typography. Shoppers can explore curated seasonal lookbooks, filter by fabric, size, and silhouette, view high-definition product galleries with pinch-to-zoom, and save items to customized moodboards. Built with Flutter, Daniella demonstrates top-tier craftsmanship in UI Polish, micro-interactions, and visual elegance.",
+        tech: ["Flutter", "E-commerce", "Bilingual", "UI Polish"],
+        features: [
+            "Full Arabic and English bilingual interface with bidirectional layout adaptation (RTL/LTR)",
+            "Editorial fashion UI with curated lookbooks, high-res galleries, and immersive animations",
+            "Dynamic size and color variation selector with real-time stock feedback and size charts",
+            "Wishlist and personalized look saving with instant shareable deep links",
+            "Silky-smooth navigation flow with custom page route transitions and interactive micro-interactions",
+        ],
+    },
+    {
+        slug: "tarwiqa",
+        name: "ترويقة (Tarwiqa)",
+        coverImage: "/images/projects/tarwiqa-banner.png",
+        screenshots: ["/images/projects/tarwiqa-banner.png"],
+        meshColors: ["rgba(16,185,129,0.8)", "rgba(6,78,59,0.6)", "rgba(16,185,129,0.4)"],
+        color: "#10B981",
+        label: "On-Demand Services · Booking",
+        year: "2026",
+        tag: "Marketopia",
+        isPrivate: true,
+        featured: false,
+        github: "https://github.com/Marco-Mina-Moris/Tarwiqa",
+        objectPosition: "top",
+        description: "Home cleaning service booking app for Alexandria (Arabic RTL), built from 20+ UI mockups, real Laravel API for auth/catalog/orders.",
+        longDescription: "ترويقة (Tarwiqa) is an on-demand residential and commercial cleaning service booking application tailor-made for the Alexandria market. Built with an Arabic-first mindset and native RTL layout fidelity, the app was translated into pixel-perfect Flutter code from over 20 detailed UI/UX mockups. Connected to a production Laravel REST API, Tarwiqa handles complete customer authentication, dynamic service catalog browsing (hourly cleaning, deep cleaning, post-renovation, and recurring subscriptions), interactive date/time slot reservation, and customized service requirements (room count, cleaning supplies, specialized equipment). Customers receive live order tracking with status updates from booking confirmation to cleaner arrival and job completion.",
+        tech: ["Flutter", "Laravel API", "RTL", "Booking"],
+        features: [
+            "Native Arabic RTL interface engineered with pixel-perfect accuracy from 20+ design mockups",
+            "Comprehensive booking engine supporting hourly, deep cleaning, and recurring maintenance visits",
+            "Real Laravel REST API integration for user auth, service catalogs, address geocoding, and order lifecycle",
+            "Interactive date & time slot booking calendar with automated availability validation",
+            "Live service order tracking with milestone progress and customer service direct chat",
+        ],
+    },
+    {
+        slug: "easy-math",
+        name: "Easy Math for Kids",
+        coverImage: "/images/projects/easymath-banner.png",
+        screenshots: ["/images/projects/easymath-banner.png"],
+        meshColors: ["rgba(168,85,247,0.8)", "rgba(46,16,101,0.6)", "rgba(168,85,247,0.4)"],
+        color: "#A855F7",
+        label: "EdTech · Mental Math & Soroban",
+        year: "2026",
+        tag: "Marketopia",
+        isPrivate: true,
+        featured: false,
+        github: "https://github.com/Marco-Mina-Moris/Easy-Math",
+        objectPosition: "top",
+        description: "Kids' mental math/abacus learning app with interactive Soroban widget, Flash Anzan drills, gamification, parent analytics dashboard, bilingual AR/EN.",
+        longDescription: "Easy Math for Kids is an interactive mental arithmetic and Japanese Soroban abacus learning platform designed to make math intuitive and thrilling for young learners. Featuring a custom-built, physics-responsive virtual Soroban abacus widget, children learn calculation techniques through tactile bead manipulation, audio-visual feedback, and step-by-step interactive tutorials. The application includes Flash Anzan speed training modules that flash numbers at customizable intervals to build mental visualization prowess. Built with Flutter, Riverpod, and Hive for high-speed local data persistence, the platform incorporates a gamification system with experience points, reward badges, unlockable avatars, and streak tracking. Parents and educators have access to a dedicated analytics dashboard visualizing accuracy trends, calculation speed, and mastery milestones.",
+        tech: ["Flutter", "Riverpod", "Hive", "Gamification", "Bilingual"],
+        features: [
+            "Custom interactive virtual Soroban abacus widget with realistic touch and haptic feedback",
+            "Flash Anzan mental math training drills with customizable digit counts and speed intervals",
+            "Comprehensive gamification system with XP progression, milestone badges, and streak mechanics",
+            "Parent & educator analytics dashboard tracking accuracy curves, speed metrics, and problem areas",
+            "Bilingual AR/EN support with voiced prompts, child-friendly audio cues, and offline progress sync with Hive",
+        ],
+    },
     {
         slug: "murshid",
         coverImage: "/images/projects/murshid.png",
@@ -151,3 +309,6 @@ export function getProjectBySlug(slug: string): ProjectData | undefined {
 export function getOtherProjects(slug: string): ProjectData[] {
     return projects.filter(p => p.slug !== slug);
 }
+
+export const clientProjects: ProjectData[] = projects.filter(p => p.tag === "Marketopia");
+
