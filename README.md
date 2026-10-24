@@ -42,7 +42,7 @@ The site is fully responsive across mobile, tablet, and desktop breakpoints, wit
 | Animations    | Framer Motion                           |
 | Icons         | Lucide React                            |
 | Styling       | Vanilla CSS design system (custom properties, Grid, Flexbox) |
-| Fonts         | Clash Display (self-hosted), Inter & JetBrains Mono via `next/font` |
+| Fonts         | Inter Tight, Inter & JetBrains Mono via `next/font` |
 | Deployment    | Vercel (recommended)                    |
 
 ---
@@ -67,29 +67,12 @@ The site is fully responsive across mobile, tablet, and desktop breakpoints, wit
 ```
 portfolio/
 ├── app/
-│   ├── globals.css              # Design tokens, primitives, and section styles
-│   ├── layout.tsx               # Root layout, fonts, and site metadata
-│   ├── page.tsx                 # Home page + JSON-LD
-│   ├── sitemap.ts / robots.ts   # SEO routes
-│   ├── not-found.tsx            # Custom 404
-│   ├── fonts/                   # Self-hosted Clash Display
-│   └── projects/[slug]/         # Project case pages
 ├── components/
-│   ├── Navbar.tsx               # Sticky nav with active-section highlight
-│   ├── Hero.tsx                 # Hero, portrait, and stats
-│   ├── TechMarquee.tsx          # Scrolling tech strip
-│   ├── About.tsx                # About + principles
-│   ├── Projects.tsx             # Filterable work grid
-│   ├── ProjectCard.tsx          # Shared project card
-│   ├── Skills.tsx               # Toolkit section
-│   ├── Experience.tsx           # Experience timeline
-│   ├── Contact.tsx              # Contact CTA and links
-│   ├── Footer.tsx, WhatsAppFAB.tsx, ScrollProgress.tsx
-│   └── Reveal.tsx, SectionHeading.tsx, Providers.tsx  # Shared helpers
 ├── lib/
-│   ├── projects-data.ts         # Projects
-│   └── site-data.ts             # Profile, links, skills, experience, tech stack
-└── public/                      # Avatar, CV, and project images
+├── public/
+├── package.json
+├── next.config.ts
+└── tsconfig.json
 ```
 
 ---
@@ -141,54 +124,7 @@ Curated news reader with category filtering, bookmarking, and a clean reading ex
 - Node.js 18.17 or later
 - npm or yarn
 
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/Marco-Mina-Moris/portfolio.git
-
-# Navigate to the project directory
-cd portfolio
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm run dev
-```
-
-The app will be available at `http://localhost:3000`.
-
 ---
 
-## Scripts
-
-| Command         | Description                    |
-|-----------------|--------------------------------|
-| `npm run dev`   | Start development server       |
-| `npm run build` | Create production build        |
-| `npm run start` | Start production server        |
-| `npm run lint`  | Run ESLint checks              |
-
----
-
-## Deployment
-
-This project is optimized for deployment on **Vercel**:
-
-1. Push the repository to GitHub.
-2. Import the project on [vercel.com](https://vercel.com).
-3. Vercel will auto-detect Next.js and configure the build settings.
-4. Deploy.
-
-For other platforms, run `npm run build` and serve the `.next` output directory.
-
----
-
-## License
-
-This project is open source and available for reference and learning purposes.
-
----
 
 **Built with Next.js, React, and TypeScript.**
