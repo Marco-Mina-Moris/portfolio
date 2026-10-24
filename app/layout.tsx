@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import Providers from "@/components/Providers";
 import Backdrop from "@/components/Backdrop";
 import { site } from "@/lib/site-data";
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Backdrop />
         <Providers>{children}</Providers>
+        <Analytics />
       </body>
     </html>
   );
