@@ -15,12 +15,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     if (!project) return { title: "Project Not Found" };
 
     return {
-        title: `${project.name} — Marco Mina`,
+        title: project.name,
         description: project.description,
+        alternates: { canonical: `/projects/${project.slug}` },
         openGraph: {
             title: `${project.name} — Marco Mina`,
             description: project.description,
-            type: "website",
+            type: "article",
+            url: `/projects/${project.slug}`,
+            images: [{ url: project.coverImage, alt: `${project.name} app preview` }],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: `${project.name} — Marco Mina`,
+            description: project.description,
+            images: [project.coverImage],
         },
     };
 }

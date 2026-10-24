@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Prebuilt Flutter Web demos (generated, minified).
+    "public/demos/**",
   ]),
 ]);
 

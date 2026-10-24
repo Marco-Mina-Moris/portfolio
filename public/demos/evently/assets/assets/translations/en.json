@@ -1,0 +1,20 @@
+{
+  "introduction_title": "Personalize Your Experience",
+  "introduction_desc": "Choose your preferred theme and language to start a comfortable and tailored experience that suits your style.",
+  "language": "Language",
+  "theme": "Theme",
+  "lets_start": "Let's Start",
+  "email": "Email",
+  "password": "Password",
+  "forgetPassword": "Forgot Password?",
+  "login": "Login",
+  "don'tHaveAccount": "Don't have an account?",
+  "or": "Or",
+  "loginWithGoogle": "Login with Google",
+  "name": "Name",
+  "register": "Register",
+  "rePassword": "Confirm Password",
+  "createAccount": "Create Account",
+  "iHaveAccount": "Already have an account?",
+  "verifyEmail": "Verify Email"
+}

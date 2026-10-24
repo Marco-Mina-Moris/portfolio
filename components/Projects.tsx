@@ -1,333 +1,83 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
-import React from "react";
-import Link from "next/link";
-import { projects, clientProjects, type ProjectItem } from "@/lib/projects-data";
+import { AnimatePresence, motion } from "framer-motion";
+import ProjectCard from "./ProjectCard";
+import Reveal, { EASE } from "./Reveal";
+import SectionHeading from "./SectionHeading";
+import { projects } from "@/lib/projects-data";
 
-/* Per-project brand accent config */
-const cardAccents: Record<string, { accent: string; hoverBorder: string; gradientDark: string }> = {
-    scorepulse:      { accent: "#00A8FF", hoverBorder: "rgba(0,168,255,0.4)",   gradientDark: "#1E3A5F" },
-    murshid:         { accent: "#2563EB", hoverBorder: "rgba(37,99,235,0.4)",   gradientDark: "#0B1E3C" },
-    "food-delivery": { accent: "#FF6B35", hoverBorder: "rgba(255,107,53,0.4)",  gradientDark: "#4A1E00" },
-    shoply:          { accent: "#FF8C00", hoverBorder: "rgba(255,140,0,0.4)",    gradientDark: "#3D2200" },
-    evently:         { accent: "#4A7BF7", hoverBorder: "rgba(74,123,247,0.4)",   gradientDark: "#1A2B5F" },
-    news:            { accent: "#A78BFA", hoverBorder: "rgba(167,139,250,0.4)",  gradientDark: "#1F1A2F" },
-    "do-cafe":       { accent: "#F59E0B", hoverBorder: "rgba(245,158,11,0.4)",   gradientDark: "#382008" },
-    dogo:            { accent: "#F59E0B", hoverBorder: "rgba(245,158,11,0.4)",   gradientDark: "#382008" },
-    "acta-chemical": { accent: "#00B4AB", hoverBorder: "rgba(0,180,171,0.4)",   gradientDark: "#0B2E2B" },
-    "bright-star":   { accent: "#0EA5E9", hoverBorder: "rgba(14,165,233,0.4)",  gradientDark: "#082F49" },
-    brightstar:      { accent: "#0EA5E9", hoverBorder: "rgba(14,165,233,0.4)",  gradientDark: "#082F49" },
-    daniella:        { accent: "#FB7185", hoverBorder: "rgba(251,113,133,0.4)", gradientDark: "#3F0E1E" },
-    tarwiqa:         { accent: "#10B981", hoverBorder: "rgba(16,185,129,0.4)",  gradientDark: "#064E3B" },
-    "easy-math":     { accent: "#A855F7", hoverBorder: "rgba(168,85,247,0.4)",  gradientDark: "#2E1065" },
-    easymath:        { accent: "#A855F7", hoverBorder: "rgba(168,85,247,0.4)",  gradientDark: "#2E1065" },
-};
+const filters = [
+    { id: "all", label: "All work", match: () => true },
+    { id: "client", label: "Client apps", match: (p: (typeof projects)[number]) => !!p.tag },
+    { id: "independent", label: "Freelance & personal", match: (p: (typeof projects)[number]) => !p.tag },
+] as const;
 
-function BentoCard({ project, featured }: { project: ProjectItem; featured?: boolean }) {
-    const [hovered, setHovered] = useState(false);
-    const cardHeight = featured ? 420 : 380;
-    const imagePercent = featured ? 60 : 55;
-
-    const accent = cardAccents[project.slug] ?? { accent: project.color, hoverBorder: `${project.color}66`, gradientDark: "#05080F" };
-    const href = `/projects/${project.slug}`;
-
-    return (
-        <Link
-            href={href}
-            className="bento-card"
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            style={{
-                display: "block",
-                height: `${cardHeight}px`,
-                borderRadius: "16px",
-                overflow: "hidden",
-                background: "rgba(255,255,255,0.02)",
-                border: hovered
-                    ? `1px solid ${accent.hoverBorder}`
-                    : "1px solid rgba(255,255,255,0.06)",
-                position: "relative",
-                transition: "border-color 0.4s ease",
-                textDecoration: "none",
-                color: "inherit",
-                cursor: "pointer",
-            }}
-        >
-            {/* Animated top border on hover */}
-            {hovered && (
-                <div style={{
-                    position: "absolute", top: 0, left: 0, right: 0, height: "1px", zIndex: 10,
-                    background: `linear-gradient(90deg, transparent, ${accent.accent}, #A78BFA, ${accent.accent}, transparent)`,
-                    backgroundSize: "200% 100%", animation: "grad-slide 2s linear infinite",
-                }} />
-            )}
-
-            {/* Image area */}
-            <div style={{
-                height: `${imagePercent}%`,
-                position: "relative",
-                overflow: "hidden",
-            }}>
-                <img
-                    src={project.coverImage}
-                    alt={project.name}
-                    style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        objectPosition: project.objectPosition ?? (featured ? "center" : "top"),
-                        display: "block",
-                        transform: hovered ? "scale(1.05)" : "scale(1)",
-                        transition: "transform 0.4s ease",
-                    }}
-                />
-                {/* Gradient overlay at bottom of image */}
-                <div style={{
-                    position: "absolute",
-                    bottom: 0, left: 0, right: 0,
-                    height: featured ? "80px" : "60px",
-                    background: `linear-gradient(to top, ${accent.gradientDark}, transparent)`,
-                    pointerEvents: "none",
-                }} />
-            </div>
-
-            {/* Content area */}
-            <div style={{
-                height: `${100 - imagePercent}%`,
-                padding: featured ? "20px 24px" : "16px 20px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                position: "relative",
-            }}>
-                <div>
-                    <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", marginBottom: "8px" }}>
-                        <h3 className="font-clash" style={{
-                            fontSize: featured ? "1.35rem" : "1.1rem",
-                            fontWeight: 700,
-                            letterSpacing: "-0.025em",
-                            color: "#F0F4FF",
-                            lineHeight: 1.2,
-                            margin: 0,
-                        }}>
-                            {project.name}
-                        </h3>
-                        {project.isFreelance && (
-                            <span className="font-mono-code" style={{
-                                padding: "2px 8px",
-                                borderRadius: "100px",
-                                fontSize: "0.62rem",
-                                fontWeight: 600,
-                                color: "#10B981",
-                                background: "rgba(16,185,129,0.12)",
-                                border: "1px solid rgba(16,185,129,0.25)",
-                                letterSpacing: "0.02em",
-                            }}>
-                                Freelance
-                            </span>
-                        )}
-                        {project.tag && (
-                            <span className="font-mono-code" style={{
-                                padding: "2px 8px",
-                                borderRadius: "100px",
-                                fontSize: "0.62rem",
-                                fontWeight: 600,
-                                color: "#818CF8",
-                                background: "rgba(129,140,248,0.12)",
-                                border: "1px solid rgba(129,140,248,0.25)",
-                                letterSpacing: "0.02em",
-                            }}>
-                                {project.tag}
-                            </span>
-                        )}
-                        {(featured || project.tag) && project.year && (
-                            <span className="font-mono-code" style={{
-                                padding: "2px 8px",
-                                borderRadius: "100px",
-                                fontSize: "0.62rem",
-                                fontWeight: 500,
-                                color: accent.accent,
-                                background: `${accent.accent}14`,
-                                border: `1px solid ${accent.accent}30`,
-                            }}>
-                                {project.year}
-                            </span>
-                        )}
-                    </div>
-                    <p style={{
-                        color: "rgba(240,244,255,0.42)",
-                        fontSize: featured ? "0.875rem" : "0.82rem",
-                        lineHeight: 1.6,
-                        marginBottom: "12px",
-                        display: "-webkit-box",
-                        WebkitLineClamp: featured ? 3 : 2,
-                        WebkitBoxOrient: "vertical" as const,
-                        overflow: "hidden",
-                    } as React.CSSProperties}>
-                        {project.description}
-                    </p>
-                </div>
-
-                <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between" }}>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                        {project.tech.map(t => (
-                            <span key={t} style={{
-                                padding: "3px 9px",
-                                borderRadius: "6px",
-                                fontSize: "0.64rem",
-                                fontWeight: 500,
-                                color: accent.accent,
-                                background: `${accent.accent}10`,
-                                border: `1px solid ${accent.accent}28`,
-                                fontFamily: "'JetBrains Mono', monospace",
-                            }}>
-                                {t}
-                            </span>
-                        ))}
-                    </div>
-
-                    {/* View Project button — appears on hover */}
-                    <span
-                        style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "5px",
-                            padding: "6px 14px",
-                            borderRadius: "100px",
-                            background: hovered ? `${accent.accent}1F` : "transparent",
-                            border: hovered ? `1px solid ${accent.hoverBorder}` : "1px solid transparent",
-                            color: accent.accent,
-                            fontSize: "0.72rem",
-                            fontWeight: 600,
-                            whiteSpace: "nowrap",
-                            opacity: hovered ? 1 : 0,
-                            transform: hovered ? "translateX(0)" : "translateX(8px)",
-                            transition: "all 0.35s cubic-bezier(0.22,1,0.36,1)",
-                            flexShrink: 0,
-                        }}
-                    >
-                        View Project <ArrowUpRight size={12} />
-                    </span>
-                </div>
-            </div>
-        </Link>
-    );
-}
+type FilterId = (typeof filters)[number]["id"];
 
 export default function Projects() {
-    // Row 1: ScorePulse (index 0) — full width
-    // Row 2: Murshid (index 1) + Food Delivery (index 2)
-    // Row 3: Shoply (index 3) + Evently (index 4)
-    // Row 4: News (index 5) — full width
-    const clientProjectsList = projects.filter(p => p.tag === "Marketopia");
-    const originalProjects = projects.filter(p => p.tag !== "Marketopia");
-    const featuredProject = originalProjects[0];
-    const row2 = [originalProjects[1], originalProjects[2]];
-    const row3 = [originalProjects[3], originalProjects[4]];
-    const lastProject = originalProjects[5];
+    const [filter, setFilter] = useState<FilterId>("all");
+    const visible = projects.filter(filters.find((f) => f.id === filter)!.match);
 
     return (
-        <section id="projects">
-            <div className="bento-container">
-                {/* Section Header */}
-                <div id="projects-header" style={{ position: "relative" }}>
-                    <span className="section-ghost-number">02</span>
-                    <div style={{ position: "relative", zIndex: 1 }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "14px" }}>
-                            <span className="font-mono-code" style={{ color: "#54C5F8", fontSize: "0.8rem", fontWeight: 500, letterSpacing: "0.06em" }}>02.</span>
-                            <div style={{ flex: 1, height: "1px", background: "linear-gradient(to right, rgba(84,197,248,0.28), transparent)" }} />
-                        </div>
-                        <h2 className="font-clash" style={{ fontSize: "clamp(1.875rem,5vw,3.75rem)", fontWeight: 700, letterSpacing: "-0.04em", color: "#F0F4FF", marginBottom: "12px", lineHeight: 1.05 }}>
-                            Featured <span className="text-gradient">Projects</span>
-                        </h2>
-                        <p style={{ color: "rgba(240,244,255,0.42)", fontSize: "clamp(0.9rem,1.5vw,1.05rem)", maxWidth: "480px", lineHeight: 1.75 }}>
-                            Production apps built with clean architecture and real-world problem solving.
-                        </p>
+        <section id="work" className="section">
+            <div className="wrap">
+                <SectionHeading
+                    index="02"
+                    eyebrow="Selected work"
+                    title={<>Apps I&apos;ve designed, built <span className="grad">&amp; shipped.</span></>}
+                    description="Client apps delivered with Marketopia alongside freelance and personal products — each built with Clean Architecture and a real backend."
+                />
+
+                <Reveal>
+                    <div className="filters" role="group" aria-label="Filter projects">
+                        {filters.map((f) => {
+                            const isActive = f.id === filter;
+                            return (
+                                <button
+                                    key={f.id}
+                                    type="button"
+                                    className={`filter${isActive ? " is-active" : ""}`}
+                                    aria-pressed={isActive}
+                                    onClick={() => setFilter(f.id)}
+                                >
+                                    {isActive && (
+                                        <motion.span layoutId="filter-pill" className="filter__pill" transition={{ duration: 0.4, ease: EASE }} />
+                                    )}
+                                    {f.label}
+                                    <span className="filter__count">{projects.filter(f.match).length}</span>
+                                </button>
+                            );
+                        })}
                     </div>
-                </div>
+                </Reveal>
 
-                {/* Bento Grid */}
-                <div className="bento-grid">
-                    {/* Client Projects (Rows 1-3: pairs of 2) */}
-                    {clientProjectsList.map(p => (
-                        <div key={p.slug} className="bento-half">
-                            <BentoCard project={p} />
-                        </div>
-                    ))}
-
-                    {/* Full width featured */}
-                    <div className="bento-full">
-                        <BentoCard project={featuredProject} featured />
-                    </div>
-
-                    {/* Two equal cards */}
-                    {row2.map(p => (
-                        <div key={p.slug} className="bento-half">
-                            <BentoCard project={p} />
-                        </div>
-                    ))}
-
-                    {/* Two equal cards */}
-                    {row3.map(p => (
-                        <div key={p.slug} className="bento-half">
-                            <BentoCard project={p} />
-                        </div>
-                    ))}
-
-                    {/* Full width */}
-                    <div className="bento-full">
-                        <BentoCard project={lastProject} />
-                    </div>
-                </div>
+                <motion.div layout className="work-grid">
+                    <AnimatePresence mode="popLayout" initial={false}>
+                        {visible.map((project, i) => (
+                            <motion.div
+                                key={project.slug}
+                                layout
+                                initial={{ opacity: 0, scale: 0.97 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.97 }}
+                                transition={{ duration: 0.4, ease: EASE }}
+                            >
+                                {/* Cards rise in from below with a slight tilt, staggered across each row. */}
+                                <motion.div
+                                    style={{ height: "100%" }}
+                                    initial={{ opacity: 0, y: 80, rotateX: 12, scale: 0.94 }}
+                                    whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+                                    viewport={{ once: true, margin: "-60px" }}
+                                    transition={{ duration: 1, delay: (i % 2) * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                                >
+                                    <ProjectCard project={project} />
+                                </motion.div>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
             </div>
-
-            <style>{`
-                #projects { padding: 40px 0; }
-                #projects-header { margin-bottom: 32px; }
-
-                .bento-container {
-                    max-width: 1280px;
-                    margin: 0 auto;
-                    padding: 0 20px;
-                }
-
-                .bento-grid {
-                    display: grid;
-                    grid-template-columns: 1fr;
-                    gap: 16px;
-                }
-
-                .bento-full { grid-column: 1 / -1; }
-                .bento-half { grid-column: 1 / -1; }
-
-                /* Stack on mobile, 2-col on tablet+ */
-                @media (min-width: 768px) {
-                    .bento-grid {
-                        grid-template-columns: repeat(12, 1fr);
-                    }
-                    .bento-full { grid-column: 1 / -1; }
-                    .bento-half { grid-column: span 6; }
-                    .bento-container { padding: 0 40px; }
-                }
-
-                @media (min-width: 1024px) {
-                    #projects { padding: 80px 0; }
-                    #projects-header { margin-bottom: 48px; }
-                    .bento-container { padding: 0 80px; }
-                }
-
-                /* Mobile card height overrides */
-                @media (max-width: 767px) {
-                    .bento-card { height: auto !important; min-height: 320px; }
-                }
-
-                @keyframes grad-slide {
-                    0%   { background-position: 0% 50%; }
-                    100% { background-position: 200% 50%; }
-                }
-            `}</style>
         </section>
     );
 }

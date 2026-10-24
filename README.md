@@ -4,7 +4,7 @@
 
 # Marco Mina | Flutter Developer Portfolio
 
-A modern, responsive developer portfolio built with Next.js and React, showcasing mobile development projects, technical skills, and professional experience. Designed with a dark theme, smooth animations, and glassmorphism aesthetics.
+A modern, responsive developer portfolio built with Next.js and React, showcasing mobile development projects, technical skills, and professional experience. Designed around a token-based dark design system with editorial typography and restrained motion.
 
 **Live Preview:** [marco-mina-portfolio.vercel.app](https://marco-mina-portfolio.vercel.app)
 
@@ -41,27 +41,24 @@ The site is fully responsive across mobile, tablet, and desktop breakpoints, wit
 | UI Library    | React 19                                |
 | Animations    | Framer Motion                           |
 | Icons         | Lucide React                            |
-| Styling       | Vanilla CSS (Custom Properties, Grid, Flexbox) |
-| Fonts         | Clash Display, Inter, JetBrains Mono (Google Fonts) |
+| Styling       | Vanilla CSS design system (custom properties, Grid, Flexbox) |
+| Fonts         | Clash Display (self-hosted), Inter & JetBrains Mono via `next/font` |
 | Deployment    | Vercel (recommended)                    |
 
 ---
 
 ## Features
 
-- **Bento Grid Layout** -- Projects displayed in a responsive bento-style grid with per-project brand accents and hover effects.
-- **Dynamic Project Pages** -- Each project has a dedicated detail page (`/projects/[slug]`) with full descriptions, tech stack, feature lists, and screenshots.
-- **Animated Hero Section** -- Circular avatar with a rotating glow ring, floating tech badges, and staggered text entrance animations.
-- **Interactive Particles** -- Canvas-based particle system with mouse interaction as a background layer.
-- **Cursor Glow** -- Subtle radial glow effect that follows the cursor on desktop.
-- **Scroll Progress Bar** -- Gradient progress indicator fixed at the top of the viewport.
-- **Skills Section** -- Categorized skill display (Languages, Frameworks, Backend, Tools) with animated skill chips.
-- **Experience Timeline** -- Vertical timeline with company details, role descriptions, and technology tags.
-- **Contact Section** -- Email, GitHub, LinkedIn, Phone, and Location cards with a downloadable CV button.
-- **WhatsApp Floating Button** -- Fixed-position FAB with hover tooltip and a pre-filled message for quick client communication.
-- **Available for Hire Badge** -- Pulsing green indicator in the navbar signaling availability to recruiters.
-- **Responsive Design** -- Fully adaptive across mobile (320px+), tablet, and desktop (1920px+) breakpoints.
-- **SEO Optimized** -- Proper meta tags, Open Graph data, semantic HTML, and descriptive heading hierarchy.
+- **Design System** -- Color, spacing, radius, and typography tokens in `app/globals.css`, with reusable primitives (buttons, chips, cards, status pills).
+- **Hero** -- Clear value proposition, availability status, portrait card, and stats derived from the project and experience data.
+- **About** -- Short narrative plus the four principles behind every build.
+- **Filterable Work Grid** -- All / Client apps / Freelance & personal filters with animated transitions and 3:2 cards that show each banner uncropped.
+- **Project Case Pages** -- `/projects/[slug]` with overview, numbered features, screens gallery with lightbox, store/repository status, previous/next navigation, and related projects. Private client repositories are labelled instead of linking to a 404.
+- **Toolkit & Experience** -- Skill categories and a clean timeline with the current role highlighted.
+- **Contact** -- Email CTA with copy-to-clipboard, WhatsApp, LinkedIn, GitHub, phone, and location.
+- **Performance** -- `next/image` for all project imagery and self-hosted fonts via `next/font`.
+- **SEO** -- Metadata base, Open Graph/Twitter images, per-project metadata, JSON-LD `Person`, `sitemap.xml`, and `robots.txt`.
+- **Accessibility** -- Skip link, active-section navigation, keyboard-friendly menu and lightbox, visible focus styles, and `prefers-reduced-motion` support.
 
 ---
 
@@ -70,36 +67,29 @@ The site is fully responsive across mobile, tablet, and desktop breakpoints, wit
 ```
 portfolio/
 ├── app/
-│   ├── globals.css              # Global styles, design tokens, animations
-│   ├── layout.tsx               # Root layout with metadata and fonts
-│   ├── page.tsx                 # Home page assembling all sections
-│   ├── icon.png                 # Favicon
-│   └── projects/
-│       └── [slug]/
-│           ├── page.tsx                 # Dynamic route handler
-│           └── ProjectDetailClient.tsx  # Project detail page component
+│   ├── globals.css              # Design tokens, primitives, and section styles
+│   ├── layout.tsx               # Root layout, fonts, and site metadata
+│   ├── page.tsx                 # Home page + JSON-LD
+│   ├── sitemap.ts / robots.ts   # SEO routes
+│   ├── not-found.tsx            # Custom 404
+│   ├── fonts/                   # Self-hosted Clash Display
+│   └── projects/[slug]/         # Project case pages
 ├── components/
-│   ├── Hero.tsx                 # Hero section with avatar and CTAs
-│   ├── Navbar.tsx               # Fixed navbar with Available badge
-│   ├── Skills.tsx               # Skills grid section
-│   ├── Projects.tsx             # Bento grid project showcase
-│   ├── Experience.tsx           # Work experience timeline
-│   ├── Contact.tsx              # Contact cards and CV download
-│   ├── Footer.tsx               # Footer
-│   ├── WhatsAppFAB.tsx          # Floating WhatsApp button
-│   ├── Particles.tsx            # Canvas particle system
-│   ├── CursorGlow.tsx           # Cursor follow glow effect
-│   └── ScrollProgress.tsx       # Scroll progress indicator
+│   ├── Navbar.tsx               # Sticky nav with active-section highlight
+│   ├── Hero.tsx                 # Hero, portrait, and stats
+│   ├── TechMarquee.tsx          # Scrolling tech strip
+│   ├── About.tsx                # About + principles
+│   ├── Projects.tsx             # Filterable work grid
+│   ├── ProjectCard.tsx          # Shared project card
+│   ├── Skills.tsx               # Toolkit section
+│   ├── Experience.tsx           # Experience timeline
+│   ├── Contact.tsx              # Contact CTA and links
+│   ├── Footer.tsx, WhatsAppFAB.tsx, ScrollProgress.tsx
+│   └── Reveal.tsx, SectionHeading.tsx, Providers.tsx  # Shared helpers
 ├── lib/
-│   └── projects-data.ts         # Project data definitions and types
-├── public/
-│   ├── avatar.jpg               # Profile photo
-│   ├── cv/                      # Downloadable CV
-│   └── images/
-│       └── projects/            # Project cover images and screenshots
-├── package.json
-├── next.config.ts
-└── tsconfig.json
+│   ├── projects-data.ts         # Projects
+│   └── site-data.ts             # Profile, links, skills, experience, tech stack
+└── public/                      # Avatar, CV, and project images
 ```
 
 ---
