@@ -25,6 +25,12 @@ export interface ProjectData extends ProjectItem {
     screenshots: string[];
     featured: boolean;
     isPrivate?: boolean;
+    /** Portrait app screenshots (about 9:19.5) shown inside the phone mockup, e.g. /images/projects/<slug>/screens/01.png */
+    screens?: string[];
+    /** Path to a Flutter Web build that runs live inside the phone mockup, e.g. /demos/<slug>/index.html */
+    demoUrl?: string;
+    /** Status bar / home indicator colors [top, bottom] for live apps without screenshots to sample from. */
+    phoneBars?: [string, string];
 }
 
 export const projects: ProjectData[] = [
@@ -41,6 +47,8 @@ export const projects: ProjectData[] = [
         isPrivate: true,
         featured: false,
         github: "https://github.com/Marco-Mina-Moris/Do-Cafe",
+        demoUrl: "/demos/do-cafe/index.html",
+        screens: ["01-onboarding", "02-home", "03-picks", "04-menu", "05-product"].map((s) => `/images/projects/do-cafe/screens/${s}.webp`),
         objectPosition: "top",
         description: 'Cafe ordering app for "Do. Cafe - Coffee & More" with Takeaway, Dine-in, and Delivery flows, real Laravel/Sanctum backend, wishlist, saved addresses, and Paymob in-app payment.',
         longDescription: 'Do. Cafe (DOgo) is a flagship mobile ordering application built for "Do. Cafe - Coffee & More", providing a complete digital cafe experience with dedicated Takeaway, Dine-in, and Delivery flows. Engineered with Flutter and Riverpod following Clean Architecture, the app interfaces with a custom Laravel backend secured via Laravel Sanctum. Customers can customize drink sizes, roast types, and add-ons in real time, save favorite items to their wishlist, manage multiple delivery addresses with GPS location selection, and pay seamlessly via integrated Paymob payment gateway (credit card and mobile wallets). The app features instant order tracking with live status updates, digital receipt generation, and promotional voucher redemption.',
@@ -66,6 +74,7 @@ export const projects: ProjectData[] = [
         isPrivate: true,
         featured: false,
         github: "https://github.com/Marco-Mina-Moris/Acta-Chemical",
+        demoUrl: "/demos/acta-chemical/index.html",
         objectPosition: "top",
         description: "E-commerce app for a chemicals company with 4 product sections (cosmetics, detergents, raw materials, specialty serums), real Laravel/Sanctum backend, multiple payment methods, downloadable product booklets.",
         longDescription: "Acta Chemical is an enterprise-grade mobile e-commerce application developed for a chemical manufacturing and distribution company. The platform organizes hundreds of chemical formulations into four distinct product divisions: cosmetics, industrial & home detergents, raw chemical materials, and specialty active serums. Built using Flutter and structured with Clean Architecture, the app connects to a RESTful Laravel API with Sanctum token authentication. Users and businesses can explore chemical specs, download official technical data sheets and product booklets (PDFs) with in-app preview, select bulk packaging options, and complete checkout through multiple payment gateways. Advanced multi-criteria search and category filtering allow clients to locate specialized chemical compounds rapidly.",
@@ -91,6 +100,8 @@ export const projects: ProjectData[] = [
         isPrivate: true,
         featured: false,
         github: "https://github.com/Marco-Mina-Moris/Bright-Star",
+        demoUrl: "/demos/bright-star/index.html",
+        screens: ["01-home", "02-highlights", "03-collections", "04-catalog", "05-product", "06-about"].map((s) => `/images/projects/bright-star/screens/${s}.webp`),
         objectPosition: "top",
         description: "Medical equipment & supplies e-commerce app replicating client branding, Riverpod state management, repository-pattern architecture, WhatsApp-based ordering.",
         longDescription: "Bright Star is a modern medical supplies and clinical equipment e-commerce application designed to streamline procurement for clinics, hospitals, and healthcare professionals. Faithfully reflecting the client's corporate visual identity, the app features an intuitive medical catalog with high-resolution imagery, technical parameters, and inventory availability indicators. Built using Flutter and Riverpod with the repository pattern, the application provides instantaneous UI responsiveness and reliable offline caching. To align with localized medical sales workflows in Egypt and the MENA region, the app integrates direct WhatsApp-based automated quotation and ordering, generating pre-filled, itemized purchase orders sent directly to sales representatives for rapid fulfillment.",
@@ -116,6 +127,8 @@ export const projects: ProjectData[] = [
         isPrivate: true,
         featured: false,
         github: "https://github.com/Marco-Mina-Moris/Daniella",
+        demoUrl: "/demos/daniella/index.html",
+        screens: ["01-home", "02-collections", "03-shop", "04-product", "05-story"].map((s) => `/images/projects/daniella/screens/${s}.webp`),
         objectPosition: "top",
         description: "Luxury swimwear/beach fashion e-commerce app, bilingual AR/EN, native-app-feel UI with polished navigation and motion.",
         longDescription: "Daniella is an elegant, high-fashion mobile shopping application crafted for a luxury swimwear and resort beachwear brand. Designed to deliver an editorial, magazine-like experience, the app emphasizes fluid motion, hero visual storytelling, and bespoke transitions that rival top native fashion apps. It provides full bilingual support in Arabic and English with seamless, real-time RTL/LTR layout mirroring and custom typography. Shoppers can explore curated seasonal lookbooks, filter by fabric, size, and silhouette, view high-definition product galleries with pinch-to-zoom, and save items to customized moodboards. Built with Flutter, Daniella demonstrates top-tier craftsmanship in UI Polish, micro-interactions, and visual elegance.",
@@ -141,6 +154,8 @@ export const projects: ProjectData[] = [
         isPrivate: true,
         featured: false,
         github: "https://github.com/Marco-Mina-Moris/Tarwiqa",
+        demoUrl: "/demos/tarwiqa/index.html",
+        screens: ["01-login", "02-register", "03-reset-password"].map((s) => `/images/projects/tarwiqa/screens/${s}.webp`),
         objectPosition: "top",
         description: "Home cleaning service booking app for Alexandria (Arabic RTL), built from 20+ UI mockups, real Laravel API for auth/catalog/orders.",
         longDescription: "ترويقة (Tarwiqa) is an on-demand residential and commercial cleaning service booking application tailor-made for the Alexandria market. Built with an Arabic-first mindset and native RTL layout fidelity, the app was translated into pixel-perfect Flutter code from over 20 detailed UI/UX mockups. Connected to a production Laravel REST API, Tarwiqa handles complete customer authentication, dynamic service catalog browsing (hourly cleaning, deep cleaning, post-renovation, and recurring subscriptions), interactive date/time slot reservation, and customized service requirements (room count, cleaning supplies, specialized equipment). Customers receive live order tracking with status updates from booking confirmation to cleaner arrival and job completion.",
@@ -166,6 +181,8 @@ export const projects: ProjectData[] = [
         isPrivate: true,
         featured: false,
         github: "https://github.com/Marco-Mina-Moris/Easy-Math",
+        demoUrl: "/demos/easy-math/index.html",
+        screens: ["01-language", "02-profile", "03-goal", "04-adventure", "05-lesson", "06-abacus-lab", "07-flash-anzan"].map((s) => `/images/projects/easy-math/screens/${s}.webp`),
         objectPosition: "top",
         description: "Kids' mental math/abacus learning app with interactive Soroban widget, Flash Anzan drills, gamification, parent analytics dashboard, bilingual AR/EN.",
         longDescription: "Easy Math for Kids is an interactive mental arithmetic and Japanese Soroban abacus learning platform designed to make math intuitive and thrilling for young learners. Featuring a custom-built, physics-responsive virtual Soroban abacus widget, children learn calculation techniques through tactile bead manipulation, audio-visual feedback, and step-by-step interactive tutorials. The application includes Flash Anzan speed training modules that flash numbers at customizable intervals to build mental visualization prowess. Built with Flutter, Riverpod, and Hive for high-speed local data persistence, the platform incorporates a gamification system with experience points, reward badges, unlockable avatars, and streak tracking. Parents and educators have access to a dedicated analytics dashboard visualizing accuracy trends, calculation speed, and mastery milestones.",
@@ -180,6 +197,8 @@ export const projects: ProjectData[] = [
     },
     {
         slug: "murshid",
+        phoneBars: ["#023567", "#F8F9FA"],
+        demoUrl: "/demos/murshid/index.html",
         coverImage: "/images/projects/murshid.png",
         screenshots: [
             "/images/projects/screenshots/murshid.png",
@@ -202,6 +221,8 @@ export const projects: ProjectData[] = [
     },
     {
         slug: "scorepulse",
+        phoneBars: ["#0D1B2A", "#0C1927"],
+        demoUrl: "/demos/scorepulse/index.html",
         coverImage: "/images/projects/scorepulse.png",
         screenshots: [
             "/images/projects/screenshots/scorepulse.png",
@@ -222,6 +243,7 @@ export const projects: ProjectData[] = [
     },
     {
         slug: "food-delivery",
+        demoUrl: "/demos/food-delivery/index.html",
         coverImage: "/images/projects/food-delivery.png",
         screenshots: [
             "/images/projects/screenshots/food-delivery.png",
@@ -252,6 +274,8 @@ export const projects: ProjectData[] = [
         longDescription: "Shoply is a full-featured e-commerce application built with Flutter, implementing a professional-grade architecture that prioritizes maintainability and scalability. The app utilizes BLoC and Cubit patterns for predictable state management, communicates with a REST API backend, and follows Clean Architecture principles with clearly separated data, domain, and presentation layers. The result is a polished shopping experience with smooth performance.",
         tech: ["Flutter", "REST API", "BLoC", "Cubit", "Clean Architecture"],
         featured: false, github: GITHUB,
+        demoUrl: "/demos/shoply/index.html",
+        screens: ["01-home", "02-cart", "03-favorites", "04-profile"].map((s) => `/images/projects/shoply/screens/${s}.webp`),
         features: [
             "Product catalog with categories, search, and advanced filtering",
             "Shopping cart with quantity management and price calculation",
@@ -262,6 +286,7 @@ export const projects: ProjectData[] = [
     },
     {
         slug: "evently",
+        demoUrl: "/demos/evently/index.html",
         coverImage: "/images/projects/evently.png",
         screenshots: [
             "/images/projects/screenshots/evently.png",
@@ -292,6 +317,8 @@ export const projects: ProjectData[] = [
         longDescription: "A clean and efficient global news application built with Flutter and Dart that aggregates news from multiple sources via REST API. The app uses the HTTP package for network communication and allows users to browse headlines by category, read article summaries, and open full articles directly in their web browser. The minimalist design focuses on readability and quick access to the latest news.",
         tech: ["Flutter", "Dart", "HTTP", "REST API"],
         featured: false, github: "https://github.com/Marco-Mina-Moris/News.git",
+        demoUrl: "/demos/news/index.html",
+        screens: ["01-home", "02-sports", "03-menu"].map((s) => `/images/projects/news/screens/${s}.webp`),
         features: [
             "News aggregation from multiple global sources via REST API",
             "Category-based browsing for personalized news feeds",

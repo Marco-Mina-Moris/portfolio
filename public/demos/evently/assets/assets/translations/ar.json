@@ -1,0 +1,20 @@
+{
+  "introduction_title": "خصص تجربتك",
+  "introduction_desc": "اختر السمة واللغة المفضلة لك للبدء بتجربة مريحة ومُصممة خصيصًا لتناسب أسلوبك.",
+  "language": "اللغة",
+  "theme": "السمة",
+  "lets_start": "لنبدأ",
+  "email": "البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "forgetPassword": "هل نسيت كلمة المرور؟",
+  "login": "تسجيل الدخول",
+  "don'tHaveAccount": "ليس لديك حساب؟",
+  "or": "أو",
+  "loginWithGoogle": "تسجيل الدخول بواسطة جوجل",
+  "name": "الاسم",
+  "register": "التسجيل",
+  "rePassword": "اعادة كلمة المرور",
+  "createAccount": "انشاء حساب ",
+  "iHaveAccount": " لدي حساب بالفعل ؟",
+  "verifyEmail": "التحقق من البريد الإلكتروني"
+}

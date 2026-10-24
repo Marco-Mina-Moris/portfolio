@@ -1,17 +1,30 @@
-export default function Footer() {
+import { ArrowUp, Github, Linkedin, Mail } from "lucide-react";
+import { navLinks, site } from "@/lib/site-data";
+
+export default function Footer({ home = true }: { home?: boolean }) {
+    const prefix = home ? "" : "/";
+
     return (
-        <footer style={{
-            borderTop: "1px solid rgba(255,255,255,0.05)",
-            padding: "28px 32px",
-        }}>
-            <div style={{
-                maxWidth: "1280px", margin: "0 auto",
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-                flexWrap: "wrap", gap: "12px",
-            }}>
-                <span style={{ color: "rgba(240,244,255,0.28)", fontSize: "0.8125rem", fontFamily: "'JetBrains Mono', monospace" }}>
-                    © 2026 Marco Mina · Flutter Developer
-                </span>
+        <footer className="footer">
+            <div className="wrap footer__inner">
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <span className="brand__mark">MM</span>
+                    <div>
+                        <div className="brand__name">{site.name}</div>
+                        <div className="footer__copy">© {new Date().getFullYear()} · {site.role}</div>
+                    </div>
+                </div>
+
+                <nav className="footer__links" aria-label="Footer">
+                    {navLinks.map((l) => <a key={l.href} href={`${prefix}${l.href}`}>{l.label}</a>)}
+                </nav>
+
+                <div style={{ display: "flex", gap: 10 }}>
+                    <a href={site.github} className="icon-btn" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><Github size={18} /></a>
+                    <a href={site.linkedin} className="icon-btn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><Linkedin size={18} /></a>
+                    <a href={`mailto:${site.email}`} className="icon-btn" aria-label="Email"><Mail size={18} /></a>
+                    <a href={`${prefix}#top`} className="icon-btn" aria-label="Back to top"><ArrowUp size={18} /></a>
+                </div>
             </div>
         </footer>
     );
