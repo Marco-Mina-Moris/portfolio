@@ -13,6 +13,7 @@
 
   /* Contrast on --bg: text 17.4:1, text-2 7.9:1, text-3 5.7:1, accent 5.5:1 */
   --text: #EDEDED;
+  --text-strong: #FFFFFF;
   --text-2: #A1A1A1;
   --text-3: #878787;
 
@@ -20,6 +21,14 @@
   --accent: #3B82F6;
   --accent-soft: rgba(59, 130, 246, 0.14);
   --accent-ink: #000000;
+
+  /* Theme plumbing: overlays, glass panels, shadows */
+  --ink-rgb: 255, 255, 255;
+  --glass-rgb: 7, 9, 14;
+  --shadow-a: 0.8;
+  --vignette-a: 0.55;
+  --tone-mix: #FFFFFF;
+  color-scheme: dark;
   --success: #34D399;
   --warning: #FBBF24;
 
@@ -83,13 +92,13 @@ button {
 
 ::selection {
   background: rgba(59, 130, 246, 0.35);
-  color: #fff;
+  color: var(--text-strong);
 }
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 8px; border: 2px solid var(--bg); }
-::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.28); }
+::-webkit-scrollbar-thumb { background: rgba(var(--ink-rgb), 0.1); border-radius: 8px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: rgba(var(--ink-rgb), 0.28); }
 
 .skip-link {
   position: fixed;
@@ -218,8 +227,8 @@ button {
 }
 
 .btn--primary:hover {
-  background: #FFFFFF;
-  box-shadow: 0 14px 34px -14px rgba(255, 255, 255, 0.45);
+  background: var(--text-strong);
+  box-shadow: 0 14px 34px -14px rgba(var(--ink-rgb), 0.45);
 }
 
 .btn--ghost {
@@ -230,7 +239,7 @@ button {
 
 .btn--ghost:hover {
   background: var(--surface-2);
-  border-color: rgba(255, 255, 255, 0.28);
+  border-color: rgba(var(--ink-rgb), 0.28);
 }
 
 .btn--sm {
@@ -296,7 +305,7 @@ button {
   border-radius: 6px;
   border: 1px solid color-mix(in srgb, var(--tone) 28%, transparent);
   background: color-mix(in srgb, var(--tone) 8%, transparent);
-  color: color-mix(in srgb, var(--tone) 70%, white);
+  color: color-mix(in srgb, var(--tone) 70%, var(--tone-mix));
   font-size: 0.8125rem;
   font-weight: 500;
   white-space: nowrap;
@@ -396,7 +405,7 @@ button {
 
 .nav.is-scrolled,
 .nav.is-open {
-  background: rgba(7, 9, 14, 0.78);
+  background: rgba(var(--glass-rgb), 0.78);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   backdrop-filter: blur(16px) saturate(160%);
   border-bottom-color: var(--border);
@@ -454,10 +463,16 @@ button {
 
 .nav__link.is-active {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(var(--ink-rgb), 0.07);
 }
 
 .nav__cta { display: none !important; }
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
 .nav__toggle {
   display: inline-grid;
@@ -470,7 +485,7 @@ button {
   right: 0;
   z-index: 99;
   padding: 8px var(--gutter) 28px;
-  background: rgba(7, 9, 14, 0.97);
+  background: rgba(var(--glass-rgb), 0.97);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
@@ -500,7 +515,7 @@ button {
     padding: 4px;
     border-radius: 10px;
     border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(var(--ink-rgb), 0.02);
   }
 
   .nav__cta { display: inline-flex !important; }
@@ -638,7 +653,7 @@ button {
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-strong);
   background: var(--bg-elev);
-  box-shadow: 0 40px 80px -32px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 40px 80px -32px rgba(0, 0, 0, var(--shadow-a));
 }
 
 .portrait__frame img {
@@ -650,7 +665,7 @@ button {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(7, 9, 14, 0.9) 0%, rgba(7, 9, 14, 0.2) 38%, transparent 60%);
+  background: linear-gradient(to top, rgba(var(--glass-rgb), 0.9) 0%, rgba(var(--glass-rgb), 0.2) 38%, transparent 60%);
 }
 
 .portrait__tag {
@@ -660,8 +675,8 @@ button {
   z-index: 2;
   padding: 6px 12px;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(7, 9, 14, 0.6);
+  border: 1px solid rgba(var(--ink-rgb), 0.14);
+  background: rgba(var(--glass-rgb), 0.6);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   font-family: var(--font-mono);
@@ -680,8 +695,8 @@ button {
   gap: 14px;
   padding: 14px 16px;
   border-radius: var(--radius);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(11, 15, 22, 0.72);
+  border: 1px solid rgba(var(--ink-rgb), 0.14);
+  background: rgba(var(--glass-rgb), 0.72);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
 }
@@ -729,7 +744,7 @@ button {
   display: flex;
   flex-direction: column;
   padding: 24px;
-  background: rgba(8, 8, 10, 0.78);
+  background: rgba(var(--glass-rgb), 0.78);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
 }
@@ -953,7 +968,7 @@ button {
   aspect-ratio: 3 / 2;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
-  background: #0E131B;
+  background: var(--bg-elev);
 }
 
 .project-card__media img {
@@ -970,8 +985,8 @@ button {
   z-index: 1;
   padding: 5px 11px;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(7, 9, 14, 0.7);
+  border: 1px solid rgba(var(--ink-rgb), 0.14);
+  background: rgba(var(--glass-rgb), 0.7);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   color: var(--text);
@@ -1176,7 +1191,7 @@ button {
   padding: 0;
   border: 1px solid var(--border);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(var(--ink-rgb), 0.04);
   cursor: zoom-in;
 }
 
@@ -1197,7 +1212,7 @@ button {
   width: 30px;
   height: 30px;
   border-radius: 8px;
-  background: rgba(7, 9, 14, 0.75);
+  background: rgba(var(--glass-rgb), 0.75);
   color: var(--text);
   opacity: 0;
   transition: opacity 0.25s;
@@ -1228,7 +1243,7 @@ button {
   bottom: 10px;
   padding: 5px 10px;
   border-radius: 6px;
-  background: rgba(10, 10, 11, 0.78);
+  background: rgba(var(--glass-rgb), 0.78);
   color: var(--text);
   font-family: var(--font-mono);
   font-size: 0.6875rem;
@@ -1338,7 +1353,7 @@ button {
   padding: 16px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(var(--ink-rgb), 0.02);
   transition: border-color 0.25s, background 0.25s, transform 0.3s var(--ease);
 }
 
@@ -1452,7 +1467,7 @@ button {
   padding: 7px 14px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-strong);
-  background: rgba(7, 9, 14, 0.92);
+  background: rgba(var(--glass-rgb), 0.92);
   color: var(--text);
   font-size: 0.8125rem;
   font-weight: 500;
@@ -1490,7 +1505,7 @@ button {
   top: 0;
   z-index: 100;
   border-bottom: 1px solid var(--border);
-  background: rgba(7, 9, 14, 0.78);
+  background: rgba(var(--glass-rgb), 0.78);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
   backdrop-filter: blur(16px) saturate(160%);
 }
@@ -1593,7 +1608,7 @@ button {
 
 .pd-meta__item {
   padding: 18px 20px;
-  background: rgba(8, 8, 10, 0.78);
+  background: rgba(var(--glass-rgb), 0.78);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
 }
@@ -1899,7 +1914,7 @@ button {
 .backdrop__vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+  background: radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, var(--vignette-a)) 100%);
 }
 
 /* Section dividers: a hairline that fades out toward the edges, with a faint blue core. */
@@ -1911,7 +1926,7 @@ button {
   width: min(1200px, 100% - 2 * var(--gutter));
   height: 1px;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1) 20%, rgba(59, 130, 246, 0.45) 50%, rgba(255, 255, 255, 0.1) 80%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(var(--ink-rgb), 0.1) 20%, rgba(59, 130, 246, 0.45) 50%, rgba(var(--ink-rgb), 0.1) 80%, transparent);
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -2570,6 +2585,73 @@ button {
   .portrait { max-width: min(400px, calc((100svh - var(--nav-h) - 110px) * 0.8)); }
 
   .stats { margin-top: clamp(40px, 7vh, 72px); }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   LIGHT THEME
+   Contrast on --bg: text 18.5:1, text-2 9.7:1, text-3 5.6:1, accent 4.8:1
+   ═══════════════════════════════════════════════════════ */
+:root[data-theme="light"] {
+  --bg: #F7F7F5;
+  --bg-elev: #FFFFFF;
+  --surface: rgba(255, 255, 255, 0.7);
+  --surface-2: rgba(255, 255, 255, 0.95);
+  --border: rgba(10, 10, 12, 0.09);
+  --border-strong: rgba(10, 10, 12, 0.16);
+
+  --text: #0A0A0B;
+  --text-strong: #000000;
+  --text-2: #3F3F46;
+  --text-3: #63636B;
+
+  --accent: #2563EB;
+  --accent-soft: rgba(37, 99, 235, 0.1);
+  --accent-ink: #FFFFFF;
+  --success: #059669;
+  --warning: #B45309;
+
+  --ink-rgb: 10, 10, 12;
+  --glass-rgb: 255, 255, 255;
+  --shadow-a: 0.18;
+  --vignette-a: 0.06;
+  --tone-mix: #000000;
+  color-scheme: light;
+}
+
+/* Cards read as raised paper in light mode. */
+:root[data-theme="light"] .card,
+:root[data-theme="light"] .project-card,
+:root[data-theme="light"] .contact-link,
+:root[data-theme="light"] .feature,
+:root[data-theme="light"] .pd-aside__card {
+  box-shadow: 0 1px 2px rgba(10, 10, 12, 0.04), 0 8px 24px -12px rgba(10, 10, 12, 0.12);
+}
+
+/* Project brand colors are tuned for dark backgrounds; darken them for text on light. */
+:root[data-theme="light"] .chip--tinted,
+:root[data-theme="light"] .project-card__meta span:first-child,
+:root[data-theme="light"] .feature__num {
+  color: color-mix(in srgb, var(--c, var(--accent)) 62%, #000);
+}
+
+/* Softer light washes on white */
+:root[data-theme="light"] .hero__grid { opacity: 0.55; }
+:root[data-theme="light"] .backdrop__orb { opacity: 0.7; }
+:root[data-theme="light"] .backdrop__grain { filter: invert(1); opacity: 0.035; }
+:root[data-theme="light"] .draw-line__fill { box-shadow: none; }
+:root[data-theme="light"] .btn--primary:hover { box-shadow: 0 14px 30px -14px rgba(10, 10, 12, 0.5); }
+
+/* Theme toggle: show the icon for the theme you would switch to. */
+.theme-toggle .icon-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
+:root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+/* Circular reveal when switching themes (View Transitions API). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 /* ═══════════════════════════════════════════════════════

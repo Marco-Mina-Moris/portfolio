@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Providers from "@/components/Providers";
 import Backdrop from "@/components/Backdrop";
+import { themeInitScript } from "@/components/ThemeToggle";
 import { site } from "@/lib/site-data";
 import "./globals.css";
 
@@ -38,13 +39,20 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#050505" },
+    { media: "(prefers-color-scheme: light)", color: "#F7F7F5" },
+  ],
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrains.variable} ${interTight.variable}`}>
+    // data-theme is set by the inline script before paint (dark is the CSS default), so html differs from the server markup on purpose.
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${jetbrains.variable} ${interTight.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>
         <Backdrop />
         <Providers>{children}</Providers>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navLinks } from "@/lib/site-data";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -71,6 +72,8 @@ export default function Navbar() {
                         ))}
                     </nav>
 
+                    <div className="nav__actions">
+                    <ThemeToggle />
                     <a href="#contact" className="btn btn--primary btn--sm nav__cta">
                         Let&apos;s talk <ArrowUpRight size={16} className="btn__arrow" />
                     </a>
@@ -85,6 +88,7 @@ export default function Navbar() {
                     >
                         {open ? <X size={20} /> : <Menu size={20} />}
                     </button>
+                    </div>
                 </div>
             </header>
 

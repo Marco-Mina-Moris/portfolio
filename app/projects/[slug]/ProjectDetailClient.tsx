@@ -7,6 +7,7 @@ import { motion, type Variants } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Github, Lock, X } from "lucide-react";
 import Footer from "@/components/Footer";
 import PhoneMockup from "@/components/PhoneMockup";
+import ThemeToggle from "@/components/ThemeToggle";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal, { EASE } from "@/components/Reveal";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -92,10 +93,13 @@ export default function ProjectDetailClient({ project }: { project: ProjectData 
                     <Link href="/#work" className="back-link">
                         <ArrowLeft size={16} /> All projects
                     </Link>
-                    <Link href="/" className="brand" aria-label="Marco Mina — home">
-                        <span className="brand__mark">MM</span>
-                        <span className="brand__name">Marco Mina</span>
-                    </Link>
+                    <div className="nav__actions">
+                        <ThemeToggle />
+                        <Link href="/" className="brand" aria-label="Marco Mina — home">
+                            <span className="brand__mark">MM</span>
+                            <span className="brand__name">Marco Mina</span>
+                        </Link>
+                    </div>
                 </div>
             </header>
 
